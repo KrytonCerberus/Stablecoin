@@ -8,22 +8,35 @@ pragma solidity >=0.7.0 <0.9.0;
 
 
 contract StableCoin {
+    // --- Auth ---
+    mapping (address => uint) public wards;
+    modifier auth {
+        require(wards[msg.sender] == 1, "Not-authorized");
+        _;
+    }
+
     event Transfer(address indexed from, address indexed to, uint tokens);
     event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
 
-    string public constant name = "Kryton";
-    string public constant symbol = "KR";
-    uint8 public constant decimals = 3;
-
-    mapping(address => uint256) balances;
-
-    mapping(address => mapping (address => uint256)) allowed;
-
+    string public constant name = "SomeCoin";
+    string public constant symbol = "SC";
+    uint8 public constant decimals = 0;
     uint256 totalSupply_;
 
-    constructor(uint256 total) {
-      totalSupply_ = total;
-      balances[msg.sender] = totalSupply_;
+    mapping(address => uint) balances;
+    mapping(address => mapping (address => uint)) allowed;
+
+    // --- Math ---
+    function add(uint x, uint y) internal pure returns (uint z) {
+        require((z = x + y) >= x);
+    }
+    function sub(uint x, uint y) internal pure returns (uint z) {
+        require((z = x - y) <= x);
+    }
+
+    constructor() {
+        wards[msg.sender] = 1;
+        totalSupply_ = 0;
     }
 
     function totalSupply() public view returns (uint256) {
@@ -35,10 +48,16 @@ contract StableCoin {
     }
 
     function transfer(address receiver, uint numTokens) public returns (bool) {
-        require(numTokens <= balances[msg.sender]);
-        balances[msg.sender] -= numTokens;
-        balances[receiver] += numTokens;
-        emit Transfer(msg.sender, receiver, numTokens);
+        return transferFrom(msg.sender, receiver, numTokens);
+    }
+
+    function transferFrom(address owner, address buyer, uint numTokens) public returns (bool) {
+        require(numTokens <= balances[owner]);
+        require(numTokens <= allowed[owner][msg.sender]);
+        allowed[owner][msg.sender] = sub(allowed[owner][msg.sender], numTokens);
+        balances[owner] = sub( balances[owner], numTokens);
+        balances[buyer] = add( balances[buyer], numTokens);
+        emit Transfer(owner, buyer, numTokens);
         return true;
     }
 
@@ -52,15 +71,20 @@ contract StableCoin {
         return allowed[owner][delegate];
     }
 
-    function transferFrom(address owner, address buyer, uint numTokens) public returns (bool) {
-        require(numTokens <= balances[owner]);
-        require(numTokens <= allowed[owner][msg.sender]);
-
-        balances[owner] -= numTokens;
-        allowed[owner][msg.sender] -= numTokens;
-        balances[buyer] += numTokens;
-        emit Transfer(owner, buyer, numTokens);
-        return true;
+    // --- Coin control ---
+    function mint(address usr, uint wad) external auth 
+    {
+        balances[usr] = add(balances[usr], wad);
+        totalSupply_ = add(totalSupply_, wad);
+        emit Transfer(address(0), usr, wad);
     }
-    
+    function burn(address usr, uint wad) external auth 
+    {
+        require(balances[usr] >= wad, "insufficient-balance");
+        //require(allowed[usr][msg.sender] >= wad, "insufficient-allowance");
+        //allowed[usr][msg.sender] = sub(allowed[usr][msg.sender], wad);
+        balances[usr] = sub(balances[usr], wad);
+        totalSupply_ = sub(totalSupply_, wad);
+        emit Transfer(usr, address(0), wad);
+    }
 }

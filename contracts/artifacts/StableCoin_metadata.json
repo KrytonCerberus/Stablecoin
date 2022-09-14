@@ -6,13 +6,7 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "total",
-						"type": "uint256"
-					}
-				],
+				"inputs": [],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -134,6 +128,24 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "usr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "wad",
+						"type": "uint256"
+					}
+				],
+				"name": "burn",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "decimals",
 				"outputs": [
@@ -144,6 +156,24 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "usr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "wad",
+						"type": "uint256"
+					}
+				],
+				"name": "mint",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -237,6 +267,25 @@
 				],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "wards",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -267,11 +316,11 @@
 	},
 	"sources": {
 		"contracts/Coin_contract.sol": {
-			"keccak256": "0x9ee1f628b4a572ad56ce3fcae6472d954ff90a59b394a4e5d8c2c8646e6d5113",
+			"keccak256": "0x6c3c16283f1318aa78d19e39f0b5c3c33ce4176e12509d11e49853d360995602",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://957f92d84730b87af61fda9d55bafae9d170aaff6eb67377588380bf6a1283dc",
-				"dweb:/ipfs/QmaZD3pPXTSgvKgThKDj42PFymg4HsMBSshCm4XRP52rnF"
+				"bzz-raw://e02e683460badf4da606e86ecafbeb5f465dea1725a3bc4ed4cd70111246cd35",
+				"dweb:/ipfs/QmPeaV8kmY7TDkvbmoVg9tdQoV63gzfCjVL5DWgq5MAxYh"
 			]
 		}
 	},
