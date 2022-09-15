@@ -2,15 +2,20 @@
 
 // how one contract can deploy another one
 // https://stackoverflow.com/questions/70209083/can-smart-contracts-deploy-other-smart-contracts
+// https://ethereum-blockchain-developer.com/020-escrow-smart-contract/03-withdraw-ether-smart-contract/
+// https://ethereum.stackexchange.com/questions/46107/how-do-you-send-ether-as-a-function-to-a-contract-using-remix
+
 
 
 pragma solidity >=0.7.0 <0.9.0;
 
 
-contract StableCoin {
+contract StableCoin 
+{
     // --- Auth ---
     mapping (address => uint) public wards;
-    modifier auth {
+    modifier auth 
+    {
         require(wards[msg.sender] == 1, "Not-authorized");
         _;
     }
@@ -27,31 +32,38 @@ contract StableCoin {
     mapping(address => mapping (address => uint)) allowed;
 
     // --- Math ---
-    function add(uint x, uint y) internal pure returns (uint z) {
+    function add(uint x, uint y) internal pure returns (uint z) 
+    {
         require((z = x + y) >= x);
     }
-    function sub(uint x, uint y) internal pure returns (uint z) {
+    function sub(uint x, uint y) internal pure returns (uint z) 
+    {
         require((z = x - y) <= x);
     }
 
-    constructor() {
+    constructor() 
+    {
         wards[msg.sender] = 1;
         totalSupply_ = 0;
     }
 
-    function totalSupply() public view returns (uint256) {
+    function totalSupply() public view returns (uint256) 
+    {
       return totalSupply_;
     }
 
-    function balanceOf(address tokenOwner) public view returns (uint) {
+    function balanceOf(address tokenOwner) public view returns (uint) 
+    {
         return balances[tokenOwner];
     }
 
-    function transfer(address receiver, uint numTokens) public returns (bool) {
+    function transfer(address receiver, uint numTokens) public returns (bool) 
+    {
         return transferFrom(msg.sender, receiver, numTokens);
     }
 
-    function transferFrom(address owner, address buyer, uint numTokens) public returns (bool) {
+    function transferFrom(address owner, address buyer, uint numTokens) public returns (bool) 
+    {
         require(numTokens <= balances[owner]);
         require(numTokens <= allowed[owner][msg.sender]);
         allowed[owner][msg.sender] = sub(allowed[owner][msg.sender], numTokens);
@@ -61,13 +73,15 @@ contract StableCoin {
         return true;
     }
 
-    function approve(address delegate, uint numTokens) public returns (bool) {
+    function approve(address delegate, uint numTokens) public returns (bool) 
+    {
         allowed[msg.sender][delegate] = numTokens;
         emit Approval(msg.sender, delegate, numTokens);
         return true;
     }
 
-    function allowance(address owner, address delegate) public view returns (uint) {
+    function allowance(address owner, address delegate) public view returns (uint) 
+    {
         return allowed[owner][delegate];
     }
 
@@ -86,5 +100,33 @@ contract StableCoin {
         balances[usr] = sub(balances[usr], wad);
         totalSupply_ = sub(totalSupply_, wad);
         emit Transfer(usr, address(0), wad);
+    }
+}
+
+
+
+contract Organization 
+{
+    StableCoin public coinContract;
+
+    constructor() 
+    {
+        coinContract = new StableCoin();
+    }
+
+    function deposit(uint256 amount) payable public
+    {
+        require(msg.value == amount);
+    }
+
+    function redeemETH() public 
+    {
+        address payable to = payable(msg.sender);
+        to.transfer(getVaultBalance());
+    }
+    
+    function getVaultBalance() public view returns (uint) 
+    {
+        return address(this).balance;
     }
 }

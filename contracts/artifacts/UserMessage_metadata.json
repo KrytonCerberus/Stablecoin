@@ -1,0 +1,57 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_message",
+						"type": "string"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Coin_contract.sol": "UserMessage"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Coin_contract.sol": {
+			"keccak256": "0x0fa427c8215a1ba1a458b84418282c42bd18d6fab2702e4e09e21fe15f14d53e",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://d898dcc8870b417ffce9a6575cb0380189d593a183c6e239adfadb824a95aed7",
+				"dweb:/ipfs/QmSHkWSNFCQuU2sU3R5d5i1TAFvvpVvDHHWG14f5so881U"
+			]
+		}
+	},
+	"version": 1
+}

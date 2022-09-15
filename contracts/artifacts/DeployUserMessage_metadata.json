@@ -1,0 +1,72 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					}
+				],
+				"name": "Deploy",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "childContract",
+				"outputs": [
+					{
+						"internalType": "contract UserMessage",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/deploy_experiment.sol": "DeployUserMessage"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/deploy_experiment.sol": {
+			"keccak256": "0x15086a208b1bd978fc47a3301ffe3def46af2bcb91dd922cb2c2d1440aa10256",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://7c48d9b05785c947d6c9a4a9eae5c5afb0f4fba0f4264c8720d691aa19a349b4",
+				"dweb:/ipfs/QmR4qYGA83ap1HabSYkbgbyrN7NZiXninrXnHqpwSDN7YA"
+			]
+		}
+	},
+	"version": 1
+}
