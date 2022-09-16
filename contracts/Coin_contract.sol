@@ -107,19 +107,28 @@ contract StableCoin
 
 contract Organization 
 {
+    // --- Auth ---
+    mapping (address => uint) public wards;
+    modifier auth 
+    {
+        require(wards[msg.sender] == 1, "Not-authorized");
+        _;
+    }
+    
     StableCoin public coinContract;
 
     constructor() 
     {
+        wards[msg.sender] = 1;
         coinContract = new StableCoin();
     }
 
-    function deposit(uint256 amount) payable public
+    function depositETH(uint256 amount) payable public
     {
         require(msg.value == amount);
     }
 
-    function redeemETH() public 
+    function withdrawETH() public auth 
     {
         address payable to = payable(msg.sender);
         to.transfer(getVaultBalance());
@@ -128,5 +137,17 @@ contract Organization
     function getVaultBalance() public view returns (uint) 
     {
         return address(this).balance;
+    }
+
+    // minting and burning of stablecoin
+    function buyStablecoinForETH(uint256 ETH_amount) payable public
+    {
+        require(msg.value == ETH_amount);
+    }
+
+    function sellStablecoinForETH(uint256 stable_tokens) public  
+    {
+        address payable to = payable(msg.sender);
+        to.transfer(getVaultBalance());
     }
 }
