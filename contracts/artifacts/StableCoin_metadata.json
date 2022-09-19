@@ -316,11 +316,11 @@
 	},
 	"sources": {
 		"contracts/Coin_contract.sol": {
-			"keccak256": "0xb31f5b017548e6a8fd162dd1ea6b84d9cd396403fc64323ee61ef754467b38df",
+			"keccak256": "0x0e12adf46bb21b8308f72630938fbb4156fe1b6027b129b985b6cdb31714c16f",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://19cd18a6e6818f36f7d7f1eee278cae5599245cce20081a06f15d9f5c651d5e1",
-				"dweb:/ipfs/QmYyCf3aPmR189Wrz6eta8N6LYpiJtBmK59BiRktAmBuNU"
+				"bzz-raw://7eb79c3b188c47bb1783fc31274eb7d285a501e31e9fff35ebe6370d9b1d2ac8",
+				"dweb:/ipfs/QmSLnhTGzGF7MofNyBUsAGwF1vRmeRiq5skJL2M8KACx6Q"
 			]
 		}
 	},

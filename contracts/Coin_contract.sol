@@ -115,7 +115,7 @@ contract Organization
         _;
     }
     
-    StableCoin public coinContract;
+    StableCoin private coinContract;
 
     constructor() 
     {
@@ -140,14 +140,34 @@ contract Organization
     }
 
     // minting and burning of stablecoin
+    function getEthPriceCZK() private view returns (uint)
+    {
+        return 30000;
+    }
+
     function buyStablecoinForETH(uint256 ETH_amount) payable public
     {
         require(msg.value == ETH_amount);
+
+        // calculate right amount of stablecoin to mint
+        uint amount = ( ETH_amount * getEthPriceCZK() ) / 1000000000000000000;
+        
+        // mint the stablecoin
+        coinContract.mint(msg.sender, amount);
     }
 
     function sellStablecoinForETH(uint256 stable_tokens) public  
     {
+        // check is user has amount of stablecoin he wants to sell
+        require(coinContract.balanceOf(msg.sender) >= stable_tokens, "insufficient-balance");
+        
+        // sent ETH to the user
+        uint ethToSend = ( stable_tokens * 1000000000000000000) / getEthPriceCZK();
+        require(ethToSend <= getVaultBalance(), "Collateral vault was liquidated !");
         address payable to = payable(msg.sender);
-        to.transfer(getVaultBalance());
+        to.transfer(ethToSend);
+
+        // burn user's stablecoin
+        coinContract.burn(msg.sender, stable_tokens);
     }
 }
