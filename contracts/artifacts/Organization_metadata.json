@@ -38,6 +38,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "getEthPriceCZK",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "getVaultBalance",
 				"outputs": [
 					{
@@ -116,12 +129,20 @@
 		"remappings": []
 	},
 	"sources": {
+		"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol": {
+			"keccak256": "0xf2b6c9adb3552254df1445b73563cf014434ff5e78663e9b961b6c059506ceb5",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6c1f59e0c7334c22fb54288728fc32546bdc9c8133d6db0d60223e3c28f52120",
+				"dweb:/ipfs/QmeuxawUVBhMWQJXaEhhnubCTc4Jwn5wYK8gbhq6NjrpfG"
+			]
+		},
 		"contracts/Coin_contract.sol": {
-			"keccak256": "0x0e12adf46bb21b8308f72630938fbb4156fe1b6027b129b985b6cdb31714c16f",
+			"keccak256": "0x0d073b54fd3c120548bce407a7d0a6fd84b9df5dc1eecac102d3209099c35269",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://7eb79c3b188c47bb1783fc31274eb7d285a501e31e9fff35ebe6370d9b1d2ac8",
-				"dweb:/ipfs/QmSLnhTGzGF7MofNyBUsAGwF1vRmeRiq5skJL2M8KACx6Q"
+				"bzz-raw://de93b3d82bfd8b0c3c788c7e6a306e687c9b6403e13c317de2e3d0ce8b653672",
+				"dweb:/ipfs/QmYfzDJfteHL1V6m5DXABiQjF1eKGzw1bWq3JrGkXQEf2M"
 			]
 		}
 	},

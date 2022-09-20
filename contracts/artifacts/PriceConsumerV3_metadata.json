@@ -1,0 +1,76 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "getEthPriceCZK",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"constructor": {
+					"notice": "Network: Optimism Aggregator: ETH/USD Address: 0x13e3Ee699D1909E989722E753853AE30b17e08c5"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/price_feed_experiment.sol": "PriceConsumerV3"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol": {
+			"keccak256": "0xf2b6c9adb3552254df1445b73563cf014434ff5e78663e9b961b6c059506ceb5",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6c1f59e0c7334c22fb54288728fc32546bdc9c8133d6db0d60223e3c28f52120",
+				"dweb:/ipfs/QmeuxawUVBhMWQJXaEhhnubCTc4Jwn5wYK8gbhq6NjrpfG"
+			]
+		},
+		"contracts/price_feed_experiment.sol": {
+			"keccak256": "0x018008041095bca5eeb2643067c2a205e9f76c6dca43076b9541b6d105592449",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://3973d56bdbb89ca2d22b438431812eec365f129b8bd7509f3d9be0c820754587",
+				"dweb:/ipfs/QmXWaLYkvhSgYMxTsMFZkdtgcTh2yNoGdkED7Dc8M3mr5f"
+			]
+		}
+	},
+	"version": 1
+}

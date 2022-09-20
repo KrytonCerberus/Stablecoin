@@ -1,13 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 
-// how one contract can deploy another one
-// https://stackoverflow.com/questions/70209083/can-smart-contracts-deploy-other-smart-contracts
-// https://ethereum-blockchain-developer.com/020-escrow-smart-contract/03-withdraw-ether-smart-contract/
-// https://ethereum.stackexchange.com/questions/46107/how-do-you-send-ether-as-a-function-to-a-contract-using-remix
-
-
-
 pragma solidity >=0.7.0 <0.9.0;
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 
 contract StableCoin 
@@ -116,11 +110,18 @@ contract Organization
     }
     
     StableCoin private coinContract;
+    AggregatorV3Interface internal priceFeed;
+    uint USDinCZK = 22;  // hardcoded price of USD in CZK
 
     constructor() 
     {
         wards[msg.sender] = 1;
         coinContract = new StableCoin();
+        
+        /* Network: Optimism
+        * Aggregator: ETH/USD
+        * Address: 0x13e3Ee699D1909E989722E753853AE30b17e08c5  */
+        priceFeed = AggregatorV3Interface(0x13e3Ee699D1909E989722E753853AE30b17e08c5);
     }
 
     function depositETH(uint256 amount) payable public
@@ -140,8 +141,20 @@ contract Organization
     }
 
     // minting and burning of stablecoin
-    function getEthPriceCZK() private view returns (uint)
+    function getEthPriceCZK() public view returns (uint)
     {
+        // get ETH price in USD from Chainlink oracle
+//        (
+//            /*uint80 roundID*/,
+//            int price,
+//            /*uint startedAt*/,
+//            /*uint timeStamp*/,
+            /*uint80 answeredInRound*/
+//        ) = priceFeed.latestRoundData();
+//        uint uprice = uint(price);
+
+        // convert USD to CZK
+        //return (uprice * USDinCZK) / 100000000;
         return 30000;
     }
 
