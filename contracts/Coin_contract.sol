@@ -143,7 +143,7 @@ contract Organization
     // minting and burning of stablecoin
     function getEthPriceCZK() public view returns (uint)
     {
-        // get ETH price in USD from Chainlink oracle
+        // get Ethereum price in USD from Chainlink oracle
 //        (
 //            /*uint80 roundID*/,
 //            int price,
