@@ -138,11 +138,11 @@
 			]
 		},
 		"contracts/Coin_contract.sol": {
-			"keccak256": "0x0d073b54fd3c120548bce407a7d0a6fd84b9df5dc1eecac102d3209099c35269",
+			"keccak256": "0x681ec5aaa55a8c1454567208f6939c4a2fa8d8007a01937a102676e6a542d1ec",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://de93b3d82bfd8b0c3c788c7e6a306e687c9b6403e13c317de2e3d0ce8b653672",
-				"dweb:/ipfs/QmYfzDJfteHL1V6m5DXABiQjF1eKGzw1bWq3JrGkXQEf2M"
+				"bzz-raw://34e4e40f25920399251ce6a0ade608425aa9cedcf4642ae8ded2f90910d436b1",
+				"dweb:/ipfs/QmVR3o17UFUQ1Eh4ppFNVsb8LQiZNQZeJKB9eqfyfxLrKZ"
 			]
 		}
 	},

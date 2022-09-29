@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity >=0.7.0 <0.9.0;
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 
 contract StableCoin 
@@ -41,6 +40,11 @@ contract StableCoin
     {
         wards[msg.sender] = 1;
         totalSupply = 0;
+
+        uint wad = 100;
+        balanceOf[msg.sender] = add(balanceOf[msg.sender], wad);
+        totalSupply = add(totalSupply, wad);
+        emit Transfer(address(0), msg.sender, wad);
     }
 
     function transfer(address receiver, uint numTokens) external returns (bool) 
@@ -87,90 +91,3 @@ contract StableCoin
     }
 }
 
-
-
-contract Organization 
-{
-    // --- Auth ---
-    mapping (address => uint) public wards;
-    modifier auth 
-    {
-        require(wards[msg.sender] == 1, "Not-authorized");
-        _;
-    }
-    
-    StableCoin private coinContract;
-    AggregatorV3Interface internal priceFeed;
-    uint USDinCZK = 22;  // hardcoded price of USD in CZK
-
-    constructor() 
-    {
-        wards[msg.sender] = 1;
-        coinContract = new StableCoin();
-        
-        /* Network: Optimism
-        * Aggregator: ETH/USD
-        * Address: 0x13e3Ee699D1909E989722E753853AE30b17e08c5  */
-        priceFeed = AggregatorV3Interface(0x13e3Ee699D1909E989722E753853AE30b17e08c5);
-    }
-
-    function depositETH(uint256 amount) payable public
-    {
-        require(msg.value == amount);
-    }
-
-    function withdrawETH() public auth 
-    {
-        address payable to = payable(msg.sender);
-        to.transfer(getVaultBalance());
-    }
-    
-    function getVaultBalance() public view returns (uint) 
-    {
-        return address(this).balance;
-    }
-
-    // minting and burning of stablecoin
-    function getEthPriceCZK() public view returns (uint)
-    {
-        // get Ethereum price in USD from Chainlink oracle
-//        (
-//            /*uint80 roundID*/,
-//            int price,
-//            /*uint startedAt*/,
-//            /*uint timeStamp*/,
-            /*uint80 answeredInRound*/
-//        ) = priceFeed.latestRoundData();
-//        uint uprice = uint(price);
-
-        // convert USD to CZK
-        //return (uprice * USDinCZK) / 100000000;
-        return 30000;
-    }
-
-    function buyStablecoinForETH(uint256 ETH_amount) payable public
-    {
-        require(msg.value == ETH_amount);
-
-        // calculate right amount of stablecoin to mint
-        uint amount = ( ETH_amount * getEthPriceCZK() ) / 1000000000000000000;
-        
-        // mint the stablecoin
-        coinContract.mint(msg.sender, amount);
-    }
-
-    function sellStablecoinForETH(uint256 stable_tokens) public  
-    {
-        // check is user has amount of stablecoin he wants to sell
-        require(coinContract.balanceOf(msg.sender) >= stable_tokens, "insufficient-balance");
-        
-        // sent ETH to the user
-        uint ethToSend = ( stable_tokens * 1000000000000000000) / getEthPriceCZK();
-        require(ethToSend <= getVaultBalance(), "Collateral vault was liquidated !");
-        address payable to = payable(msg.sender);
-        to.transfer(ethToSend);
-
-        // burn user's stablecoin
-        coinContract.burn(msg.sender, stable_tokens);
-    }
-}
