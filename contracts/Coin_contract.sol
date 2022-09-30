@@ -16,7 +16,7 @@ contract StableCoin
 
     string public constant name = "WhiteStone";
     string public constant symbol = "WS";
-    string public constant version  = "1";
+    string public constant version  = "2";
     uint8 public constant decimals = 0;
     uint256 public totalSupply;
 
@@ -106,10 +106,16 @@ contract Organization
         wards[msg.sender] = 1;
         coinContract = new StableCoin();
         
+        // Available price feeds:
+
+        /* Network: Arbitrum
+        * Aggregator: ETH/USD
+        * Address: 0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612  */
+
         /* Network: Optimism
         * Aggregator: ETH/USD
         * Address: 0x13e3Ee699D1909E989722E753853AE30b17e08c5  */
-        priceFeed = AggregatorV3Interface(0x13e3Ee699D1909E989722E753853AE30b17e08c5);
+        priceFeed = AggregatorV3Interface(0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612);
     }
 
     function depositETH(uint256 amount) payable public
