@@ -14,8 +14,8 @@ contract StableCoin
         _;
     }
 
-    string public constant name = "DotaCoin";
-    string public constant symbol = "DC";
+    string public constant name = "WhiteStone";
+    string public constant symbol = "WS";
     string public constant version  = "1";
     uint8 public constant decimals = 0;
     uint256 public totalSupply;
@@ -79,8 +79,6 @@ contract StableCoin
     function burn(address usr, uint wad) external auth 
     {
         require(balanceOf[usr] >= wad, "insufficient-balance");
-        //require(allowed[usr][msg.sender] >= wad, "insufficient-allowance");
-        //allowed[usr][msg.sender] = sub(allowed[usr][msg.sender], wad);
         balanceOf[usr] = sub(balanceOf[usr], wad);
         totalSupply = sub(totalSupply, wad);
         emit Transfer(usr, address(0), wad);
@@ -101,7 +99,7 @@ contract Organization
     
     StableCoin private coinContract;
     AggregatorV3Interface internal priceFeed;
-    uint USDinCZK = 22;  // hardcoded price of USD in CZK
+    uint USDinCZK = 25;  // hardcoded price of USD in CZK
 
     constructor() 
     {
