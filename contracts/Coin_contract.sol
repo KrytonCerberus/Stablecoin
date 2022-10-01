@@ -98,8 +98,15 @@ contract Organization
     }
     
     StableCoin private coinContract;
+    
+    // Price feed
     AggregatorV3Interface internal priceFeed;
-    uint USDinCZK = 25;  // hardcoded price of USD in CZK
+    uint USDinCZK = 25;
+    // Note: Price of USD in CZK is hardcoded, which is bad. But aim for this project was to create stablecoin pegged to CZK.
+    // Since there are no Oracles providing price feeds in CZK, I had to use USD ones and transform it to CZK. 
+    // I could make this variable configurable by contract deployer (me), but I would then represent third party risk, as 
+    // everyone would need to trust me I will not change it in malicious way to confuse the contract. 
+    // I decided that "least bad" solution is to make it hardcoded and uneditable by anyone. 
 
     constructor() 
     {
@@ -124,6 +131,9 @@ contract Organization
         require(msg.value == amount);
     }
 
+    // WARNING: following function is there only for development purposes. It shall not be present in finally deployed contract.
+    // If you see this function, do not use this contract.
+    // This function is literally giving me right to access whole collateral vault.
     function withdrawETH() public auth 
     {
         address payable to = payable(msg.sender);
@@ -135,24 +145,23 @@ contract Organization
         return address(this).balance;
     }
 
-    // minting and burning of stablecoin
+    // get Ethereum price from Chainlink oracle
     function getEthPriceCZK() public view returns (uint)
     {
-        // get Ethereum price in USD from Chainlink oracle
-//        (
-//            /*uint80 roundID*/,
-//            int price,
-//            /*uint startedAt*/,
-//            /*uint timeStamp*/,
+        (
+            /*uint80 roundID*/,
+            int price,
+            /*uint startedAt*/,
+            /*uint timeStamp*/,
             /*uint80 answeredInRound*/
-//        ) = priceFeed.latestRoundData();
-//        uint uprice = uint(price);
+        ) = priceFeed.latestRoundData();
+        uint uprice = uint(price);
 
         // convert USD to CZK
-        //return (uprice * USDinCZK) / 100000000;
-        return 30000;
+        return (uprice * USDinCZK) / 100000000;
     }
 
+    // minting stablecoin
     function buyStablecoinForETH(uint256 ETH_amount) payable public
     {
         require(msg.value == ETH_amount);
@@ -164,6 +173,7 @@ contract Organization
         coinContract.mint(msg.sender, amount);
     }
 
+    // burning stablecoin
     function sellStablecoinForETH(uint256 stable_tokens) public  
     {
         // check is user has amount of stablecoin he wants to sell
