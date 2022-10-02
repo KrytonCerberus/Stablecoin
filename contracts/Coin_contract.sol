@@ -14,9 +14,9 @@ contract StableCoin
         _;
     }
 
-    string public constant name = "WhiteStone";
-    string public constant symbol = "WS";
-    string public constant version  = "2";
+    string public constant name = "Mushroom";
+    string public constant symbol = "MS";
+    string public constant version  = "1";
     uint8 public constant decimals = 0;
     uint256 public totalSupply;
 
