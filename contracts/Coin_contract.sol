@@ -14,8 +14,8 @@ contract StableCoin
         _;
     }
 
-    string public constant name = "Mushroom";
-    string public constant symbol = "MS";
+    string public constant name = "Kryton";
+    string public constant symbol = "KR";
     string public constant version  = "1";
     uint8 public constant decimals = 0;
     uint256 public totalSupply;
@@ -101,7 +101,7 @@ contract Organization
     
     // Price feed
     AggregatorV3Interface internal priceFeed;
-    uint USDinCZK = 25;
+    uint USDinCZK = 23;
     // Note: Price of USD in CZK is hardcoded, which is bad. But aim for this project was to create stablecoin pegged to CZK.
     // Since there are no Oracles providing price feeds in CZK, I had to use USD ones and transform it to CZK. 
     // I could make this variable configurable by contract deployer (me), but I would then represent third party risk, as 
